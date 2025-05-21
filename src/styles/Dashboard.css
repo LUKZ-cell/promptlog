@@ -256,6 +256,68 @@
   gap: 1rem;
 }
 
+.satisfaction-group {
+  margin-bottom: 1.5rem;
+}
+
+.satisfaction-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.satisfaction-slider {
+  width: 220px;
+  max-width: 100%;
+  accent-color: #3366ff;
+  /* Für Chrome, Edge, Safari */
+  background: transparent;
+}
+
+.satisfaction-value {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #3366ff;
+  min-width: 32px;
+  text-align: left;
+}
+
+/* Optional: Slider-Track für Firefox anpassen */
+.satisfaction-slider::-moz-range-thumb {
+  border: none;
+  background: #3366ff;
+}
+.satisfaction-slider::-webkit-slider-thumb {
+  border: none;
+  background: #3366ff;
+}
+.satisfaction-slider::-ms-thumb {
+  border: none;
+  background: #3366ff;
+}
+
+.satisfaction-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(90deg, #3366ff 100%, #e0e3ea 0%);
+  border-radius: 3px;
+}
+.satisfaction-slider::-moz-range-track {
+  height: 6px;
+  background: linear-gradient(90deg, #3366ff 100%, #e0e3ea 0%);
+  border-radius: 3px;
+}
+.satisfaction-slider::-ms-fill-lower {
+  background: #3366ff;
+}
+.satisfaction-slider::-ms-fill-upper {
+  background: #e0e3ea;
+}
+
+.satisfaction-slider:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3366ff33;
+}
+
 @media (max-width: 900px) {
   .dashboard-container {
     padding: 1.2rem 0.5rem 2rem 0.5rem;

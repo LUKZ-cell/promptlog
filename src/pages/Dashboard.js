@@ -205,18 +205,21 @@ export default function Dashboard() {
             ></textarea>
           </div>
           
-          <div className="form-group">
+          <div className="form-group satisfaction-group">
             <label htmlFor="satisfaction">Zufriedenheit (1-5)</label>
-            <input
-              type="range"
-              id="satisfaction"
-              name="satisfaction"
-              min="1"
-              max="5"
-              value={newPromptVersion.satisfaction}
-              onChange={handleInputChange}
-            />
-            <span>{newPromptVersion.satisfaction}</span>
+            <div className="satisfaction-slider-row">
+              <input
+                type="range"
+                id="satisfaction"
+                name="satisfaction"
+                min="1"
+                max="5"
+                value={newPromptVersion.satisfaction}
+                onChange={handleInputChange}
+                className="satisfaction-slider"
+              />
+              <span className="satisfaction-value">{newPromptVersion.satisfaction}</span>
+            </div>
           </div>
           
           <div className="form-group">

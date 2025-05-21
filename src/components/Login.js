@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase/config';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [emailSuggestions, setEmailSuggestions] = useState([]);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchEmails = async () => {
+      try {
+        const usersRef = collection(db, 'users');
+        const q = query(usersRef, where('allowAutoComplete', '==', true));
+        const querySnapshot = await getDocs(q);
+        const emails = querySnapshot.docs.map(doc => doc.data().email);
+        setEmailSuggestions(emails);
+      } catch (error) {
+        console.error('Fehler beim Laden der E-Mail-Adressen:', error);
+      }
+    };
+
+    fetchEmails();
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -35,8 +54,14 @@ export default function Login() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            list="email-suggestions"
             required
           />
+          <datalist id="email-suggestions">
+            {emailSuggestions.map((suggestion, index) => (
+              <option key={index} value={suggestion} />
+            ))}
+          </datalist>
         </div>
         <div>
           <label>Passwort:</label>

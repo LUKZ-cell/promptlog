@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { db } from '../firebase/config';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -11,6 +13,7 @@ export default function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showAutoCompleteDialog, setShowAutoCompleteDialog] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
 
@@ -24,13 +27,39 @@ export default function Register() {
     try {
       setError('');
       setLoading(true);
-      await signup(email, password);
-      navigate('/dashboard');
+      const userCredential = await signup(email, password);
+      
+      // Zeige den Dialog für die Autovervollständigungs-Einstellung
+      setShowAutoCompleteDialog(true);
+      
+      // Speichere die E-Mail-Adresse in der Firestore-Datenbank
+      await setDoc(doc(db, 'users', userCredential.user.uid), {
+        email: email,
+        uid: userCredential.user.uid,
+        createdAt: new Date(),
+        allowAutoComplete: false // Standardmäßig deaktiviert
+      });
+
     } catch (error) {
       setError('Fehler bei der Registrierung: ' + error.message);
+      setLoading(false);
+    }
+  }
+
+  const handleAutoCompletePreference = async (allowAutoComplete) => {
+    try {
+      // Aktualisiere die Einstellung in der Datenbank
+      await setDoc(doc(db, 'users', (await auth.currentUser).uid), {
+        allowAutoComplete: allowAutoComplete
+      }, { merge: true });
+      
+      setShowAutoCompleteDialog(false);
+      navigate('/dashboard');
+    } catch (error) {
+      setError('Fehler beim Speichern der Einstellung: ' + error.message);
     }
     setLoading(false);
-  }
+  };
 
   return (
     <div className="register-container">
@@ -89,6 +118,20 @@ export default function Register() {
       <div className="login-link">
         Bereits registriert? <Link to="/login">Hier anmelden</Link>
       </div>
+
+      {/* Dialog für Autovervollständigungs-Einstellung */}
+      {showAutoCompleteDialog && (
+        <div className="dialog-overlay">
+          <div className="dialog">
+            <h3>E-Mail-Autovervollständigung</h3>
+            <p>Möchten Sie, dass Ihre E-Mail-Adresse für die Autovervollständigung gespeichert wird?</p>
+            <div className="dialog-buttons">
+              <button onClick={() => handleAutoCompletePreference(true)}>Ja, speichern</button>
+              <button onClick={() => handleAutoCompletePreference(false)}>Nein, nicht speichern</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
