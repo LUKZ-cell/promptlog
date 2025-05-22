@@ -1,33 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase/config';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useNavigate, Link } from 'react-router-dom';
+import '../styles/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [emailSuggestions, setEmailSuggestions] = useState([]);
   const { login } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchEmails = async () => {
-      try {
-        const usersRef = collection(db, 'users');
-        const q = query(usersRef, where('allowAutoComplete', '==', true));
-        const querySnapshot = await getDocs(q);
-        const emails = querySnapshot.docs.map(doc => doc.data().email);
-        setEmailSuggestions(emails);
-      } catch (error) {
-        console.error('Fehler beim Laden der E-Mail-Adressen:', error);
-      }
-    };
-
-    fetchEmails();
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,46 +18,55 @@ export default function Login() {
       setError('');
       setLoading(true);
       await login(email, password);
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
-      setError('Fehler beim Anmelden: ' + error.message);
+      setError('Anmeldung fehlgeschlagen: ' + error.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
-    <div className="login-container">
-      <h2>Anmelden</h2>
-      {error && <div className="error">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            list="email-suggestions"
-            required
-          />
-          <datalist id="email-suggestions">
-            {emailSuggestions.map((suggestion, index) => (
-              <option key={index} value={suggestion} />
-            ))}
-          </datalist>
-        </div>
-        <div>
-          <label>Passwort:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button disabled={loading} type="submit">
-          Anmelden
-        </button>
-      </form>
+    <div className="sivers-container">
+      <header className="sivers-header">
+        <h1>Prompt Logbuch</h1>
+      </header>
+      
+      {error && <div className="sivers-notification error">{error}</div>}
+      
+      <main className="sivers-content">
+        <form onSubmit={handleSubmit} className="sivers-form">
+          <div>
+            <label htmlFor="email">E-Mail</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="password">Passwort</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          <button type="submit" disabled={loading}>
+            {loading ? 'Anmelden...' : 'Anmelden'}
+          </button>
+        </form>
+        
+        <p style={{marginTop: "2em", textAlign: "center"}}>
+          Noch kein Konto? <Link to="/register">Registrieren</Link>
+        </p>
+      </main>
     </div>
   );
 } 

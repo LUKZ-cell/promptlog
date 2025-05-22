@@ -1,0 +1,252 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafd;
+}
+
+.welcome-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.welcome-header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.welcome-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.welcome-header a {
+  color: #2a2a2a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.welcome-header a:hover {
+  color: #4a6ee0;
+}
+
+.welcome-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.welcome-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.welcome-hero h2 {
+  font-size: 2.5rem;
+  margin: 0 0 1.5rem 0;
+  color: #2a2a2a;
+}
+
+.hero-text {
+  font-size: 1.25rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #4a6ee0;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #3a5bc7;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: white;
+  color: #4a6ee0;
+  border: 1.5px solid #4a6ee0;
+}
+
+.btn-secondary:hover {
+  background: #f8fafd;
+  transform: translateY(-1px);
+}
+
+.welcome-features {
+  padding: 2rem;
+}
+
+.welcome-features h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #2a2a2a;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-card h3 {
+  color: #2a2a2a;
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+}
+
+.feature-card p {
+  color: #666;
+  margin: 0;
+}
+
+.welcome-philosophy {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.welcome-philosophy h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2a2a2a;
+}
+
+blockquote {
+  font-size: 1.5rem;
+  color: #4a6ee0;
+  margin: 0 auto 2rem auto;
+  max-width: 800px;
+  font-style: italic;
+}
+
+blockquote footer {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.welcome-philosophy p {
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.welcome-contact {
+  text-align: center;
+  padding: 2rem;
+}
+
+.welcome-contact h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2a2a2a;
+}
+
+.welcome-contact a {
+  color: #4a6ee0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.welcome-contact a:hover {
+  color: #3a5bc7;
+}
+
+.welcome-footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+  color: #666;
+}
+
+.welcome-footer a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.welcome-footer a:hover {
+  color: #4a6ee0;
+}
+
+@media (max-width: 768px) {
+  .welcome-container {
+    padding: 1rem;
+  }
+
+  .welcome-hero {
+    padding: 2rem 1rem;
+  }
+
+  .welcome-hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero-text {
+    font-size: 1.1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  blockquote {
+    font-size: 1.2rem;
+  }
+} 

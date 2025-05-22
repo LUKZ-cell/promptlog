@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import PromptVersionsPage from './pages/PromptVersionsPage';
 import './App.css';
+import './styles/SiversStyle.css';
 
 // Geschützte Route, die prüft, ob ein Benutzer authentifiziert ist
 function ProtectedRoute({ children }) {
@@ -37,7 +38,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="App">
+        <div className="sivers-container">
           <Routes>
             {/* Öffentliche Routen mit Umleitung für angemeldete Benutzer */}
             <Route path="/" element={

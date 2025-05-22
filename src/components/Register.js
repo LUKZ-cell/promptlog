@@ -1,137 +1,99 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { db } from '../firebase/config';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
+import '../styles/Login.css';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showAutoCompleteDialog, setShowAutoCompleteDialog] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
-      return setError('Die Passwörter stimmen nicht überein');
+      return setError('Passwörter stimmen nicht überein');
     }
 
     try {
       setError('');
       setLoading(true);
-      const userCredential = await signup(email, password);
+      const { user } = await signup(email, password);
       
-      // Zeige den Dialog für die Autovervollständigungs-Einstellung
-      setShowAutoCompleteDialog(true);
-      
-      // Speichere die E-Mail-Adresse in der Firestore-Datenbank
-      await setDoc(doc(db, 'users', userCredential.user.uid), {
-        email: email,
-        uid: userCredential.user.uid,
+      // Benutzer in Firestore speichern
+      await addDoc(collection(db, 'users'), {
+        uid: user.uid,
+        email: user.email,
         createdAt: new Date(),
-        allowAutoComplete: false // Standardmäßig deaktiviert
+        allowAutoComplete: true
       });
 
+      navigate('/');
     } catch (error) {
-      setError('Fehler bei der Registrierung: ' + error.message);
+      setError('Registrierung fehlgeschlagen: ' + error.message);
+    } finally {
       setLoading(false);
     }
   }
 
-  const handleAutoCompletePreference = async (allowAutoComplete) => {
-    try {
-      // Aktualisiere die Einstellung in der Datenbank
-      await setDoc(doc(db, 'users', (await auth.currentUser).uid), {
-        allowAutoComplete: allowAutoComplete
-      }, { merge: true });
-      
-      setShowAutoCompleteDialog(false);
-      navigate('/dashboard');
-    } catch (error) {
-      setError('Fehler beim Speichern der Einstellung: ' + error.message);
-    }
-    setLoading(false);
-  };
-
   return (
-    <div className="register-container">
-      <h2>Registrieren</h2>
-      {error && <div className="error">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="password-container">
-          <label>Passwort:</label>
-          <div className="password-input-container">
+    <div className="sivers-container">
+      <header className="sivers-header">
+        <h1>Prompt Logbuch</h1>
+      </header>
+      
+      {error && <div className="sivers-notification error">{error}</div>}
+      
+      <main className="sivers-content">
+        <form onSubmit={handleSubmit} className="sivers-form">
+          <div>
+            <label htmlFor="email">E-Mail</label>
             <input
-              type={showPassword ? "text" : "password"}
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="password">Passwort</label>
+            <input
+              type="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button
-              type="button"
-              className="password-toggle"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
           </div>
-        </div>
-        <div className="password-container">
-          <label>Passwort bestätigen:</label>
-          <div className="password-input-container">
+          
+          <div>
+            <label htmlFor="confirm-password">Passwort bestätigen</label>
             <input
-              type={showConfirmPassword ? "text" : "password"}
+              type="password"
+              id="confirm-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <button
-              type="button"
-              className="password-toggle"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
           </div>
-        </div>
-        <button disabled={loading} type="submit">
-          Registrieren
-        </button>
-      </form>
-      <div className="login-link">
-        Bereits registriert? <Link to="/login">Hier anmelden</Link>
-      </div>
-
-      {/* Dialog für Autovervollständigungs-Einstellung */}
-      {showAutoCompleteDialog && (
-        <div className="dialog-overlay">
-          <div className="dialog">
-            <h3>E-Mail-Autovervollständigung</h3>
-            <p>Möchten Sie, dass Ihre E-Mail-Adresse für die Autovervollständigung gespeichert wird?</p>
-            <div className="dialog-buttons">
-              <button onClick={() => handleAutoCompletePreference(true)}>Ja, speichern</button>
-              <button onClick={() => handleAutoCompletePreference(false)}>Nein, nicht speichern</button>
-            </div>
-          </div>
-        </div>
-      )}
+          
+          <button type="submit" disabled={loading}>
+            {loading ? 'Registrieren...' : 'Registrieren'}
+          </button>
+        </form>
+        
+        <p style={{marginTop: "2em", textAlign: "center"}}>
+          Bereits ein Konto? <Link to="/login">Anmelden</Link>
+        </p>
+      </main>
     </div>
   );
 } 

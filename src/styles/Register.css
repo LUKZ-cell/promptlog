@@ -1,0 +1,240 @@
+.register-container {
+  max-width: 500px;
+  margin: 4rem auto;
+  padding: 3rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.register-container h2 {
+  margin: 0 0 2rem 0;
+  color: #2a2a2a;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.register-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.register-container form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.register-container label {
+  font-weight: 600;
+  color: #2a2a2a;
+  font-size: 1.1rem;
+}
+
+.register-container input {
+  padding: 1rem 1.2rem;
+  border: 1.5px solid #e0e3ea;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  background: #f8fafd;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.register-container input:focus {
+  border-color: #4a6ee0;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 110, 224, 0.1);
+}
+
+.register-container button[type="submit"] {
+  background: #4a6ee0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.register-container button[type="submit"]:hover {
+  background: #3a5bc7;
+  transform: translateY(-1px);
+}
+
+.register-container button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.register-container .error {
+  background: #ffeaea;
+  color: #c0392b;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ffd6d6;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.password-container input {
+  flex: 1;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  position: static;
+  transform: none;
+}
+
+.password-toggle:hover {
+  color: #4a6ee0;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-link p {
+  margin: 0;
+  color: #666;
+}
+
+.login-link a {
+  color: #4a6ee0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.login-link a:hover {
+  color: #3a5bc7;
+}
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 90%;
+}
+
+.dialog h3 {
+  margin: 0 0 1rem 0;
+  color: #2a2a2a;
+  font-size: 1.5rem;
+}
+
+.dialog p {
+  margin: 0 0 1.5rem 0;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.dialog-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.dialog-buttons button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-buttons button:first-child {
+  background: #4a6ee0;
+  color: white;
+}
+
+.dialog-buttons button:last-child {
+  background: #f8fafd;
+  color: #666;
+  border: 1.5px solid #e0e3ea;
+}
+
+.dialog-buttons button:hover {
+  transform: translateY(-1px);
+}
+
+.dialog-buttons button:first-child:hover {
+  background: #3a5bc7;
+}
+
+.dialog-buttons button:last-child:hover {
+  background: #f0f2f5;
+}
+
+@media (max-width: 600px) {
+  .register-container {
+    margin: 2rem 1rem;
+    padding: 2rem;
+  }
+  
+  .register-container form div,
+  .register-container button[type="submit"],
+  .register-container .error,
+  .password-container,
+  .login-link {
+    max-width: 100%;
+  }
+  
+  .dialog {
+    padding: 1.5rem;
+  }
+} 

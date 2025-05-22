@@ -1,0 +1,229 @@
+/* 
+   Derek Sivers-Stil CSS
+   Basierend auf https://sive.rs/about 
+   Minimalistisches, einfaches und klares Design
+*/
+
+:root {
+  --text-color: #333;
+  --background-color: #fff;
+  --link-color: #0366d6;
+  --border-color: #ddd;
+  --header-color: #111;
+  --content-width: 700px;
+}
+
+body {
+  font-family: Georgia, serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 20px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* Typografie */
+h1, h2, h3, h4, h5, h6 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--header-color);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 1.5em;
+}
+
+p {
+  margin-bottom: 1.2em;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Container und Layouts */
+.sivers-container {
+  max-width: 100%;
+  margin-bottom: 3em;
+}
+
+.sivers-header {
+  margin-bottom: 2em;
+}
+
+.sivers-content {
+  margin-bottom: 2em;
+}
+
+/* Formulare im Sivers-Stil */
+.sivers-form {
+  margin: 2em 0;
+}
+
+.sivers-form label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.sivers-form input,
+.sivers-form textarea,
+.sivers-form select {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.sivers-form textarea {
+  min-height: 150px;
+}
+
+.sivers-form button {
+  background-color: var(--link-color);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sivers-form button:hover {
+  opacity: 0.9;
+}
+
+/* Karten für Prompts */
+.sivers-card {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.sivers-card h3 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5em;
+}
+
+/* Buttons */
+.sivers-button {
+  display: inline-block;
+  background: transparent;
+  color: var(--link-color);
+  border: 1px solid var(--link-color);
+  border-radius: 3px;
+  padding: 0.3em 0.7em;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+.sivers-button:hover {
+  background-color: var(--link-color);
+  color: white;
+}
+
+.sivers-danger-button {
+  color: #e53935;
+  border-color: #e53935;
+}
+
+.sivers-danger-button:hover {
+  background-color: #e53935;
+  color: white;
+}
+
+/* Navigation */
+.sivers-nav {
+  margin: 1em 0 2em 0;
+}
+
+.sivers-nav a {
+  margin-right: 1em;
+}
+
+/* Dienstprogramme */
+.sivers-search {
+  margin-bottom: 1.5em;
+}
+
+.sivers-search input {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-size: 1rem;
+}
+
+/* Benachrichtigungen */
+.sivers-notification {
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  border-radius: 3px;
+  border-left: 4px solid var(--link-color);
+  background-color: rgba(3, 102, 214, 0.1);
+}
+
+.sivers-notification.success {
+  border-left-color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.1);
+}
+
+.sivers-notification.error {
+  border-left-color: #e53935;
+  background-color: rgba(229, 57, 53, 0.1);
+}
+
+/* Dialog-Overlay */
+.sivers-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.sivers-dialog {
+  background-color: var(--background-color);
+  padding: 2em;
+  border-radius: 3px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.sivers-dialog h3 {
+  margin-top: 0;
+}
+
+.sivers-dialog-buttons {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  margin-top: 1.5em;
+} 
